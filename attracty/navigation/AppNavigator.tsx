@@ -1,5 +1,9 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
-const MainNavigator = createSwitchNavigator({});
+import CandidateListScreen from '../screens/CandidateListScreen';
+
+const MainNavigator = createSwitchNavigator({
+    CandidateList: CandidateListScreen,
+});
 
 export default createAppContainer(MainNavigator);

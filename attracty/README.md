@@ -8,6 +8,11 @@
 
 ## What I still wanted to add
 
+## Ideas
+
+-   Store matches in local database for faster loading
+-
+
 # Suggestions for the future
 
 ## Information

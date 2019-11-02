@@ -21,8 +21,6 @@ export const fetchCandidates = () => {
 
             const resData = await response.json();
 
-            console.log(resData.data);
-
             // remove duplicated id's
             const uniqueCandidates: ICandidateProps[] = [
                 ...new Set(resData.data.map(JSON.stringify)),

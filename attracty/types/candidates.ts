@@ -9,9 +9,20 @@ export type CanidateInfo = {
     interests: string[];
 };
 
+export type CandidatePhotos = {
+    url: string;
+    width: number;
+    height: number;
+};
+
 export interface ICandidateProps {
     id: string;
     info: CanidateInfo;
-    associated: null | [];
-    photos: Object;
+    associated?: null | ICandidateProps[];
+    photos: CandidatePhotos;
+}
+
+export enum CANDIDATE_CHOOSE {
+    LIKE,
+    DISLIKE,
 }

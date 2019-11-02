@@ -3,8 +3,9 @@ import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavigationStackProp } from 'react-navigation-stack';
 
+import { ICandidateProps, CANDIDATE_CHOOSE } from '../types/candidates';
 import * as candidateActions from '../store/actions/candidate';
-import { ICandidateProps } from '../types/candidates';
+import CandidateItem from '../components/Candidate/CandidateItem';
 
 type Props = {
     navigation: NavigationStackProp;
@@ -54,6 +55,10 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
         });
     }, [dispatch, loadCandidates]);
 
+    const onSelectCandidate = (id: string, chooseType: CANDIDATE_CHOOSE) => {
+        console.log({ id, chooseType });
+    };
+
     if (isLoading) {
         return (
             <View>
@@ -77,11 +82,14 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
             data={candidates}
             keyExtractor={(item: ICandidateProps) => item.id}
             renderItem={(itemData: { item: ICandidateProps }) => {
-                const { info } = itemData.item;
+                const { info, id, photos } = itemData.item;
                 return (
-                    <Text>
-                        {info.name} {info.gender}
-                    </Text>
+                    <CandidateItem
+                        id={id}
+                        info={info}
+                        photos={photos}
+                        onSelect={onSelectCandidate}
+                    />
                 );
             }}
         />

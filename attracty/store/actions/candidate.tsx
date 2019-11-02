@@ -1,7 +1,7 @@
 import { CANDIDATES, CandidateTypes } from '../types';
 import { ICandidateProps } from '../../types/candidates';
 
-import { SessionKey } from '../../keys/session';
+import * as ENV from '../../env';
 
 export const fetchCandidates = () => {
     return async dispatch => {
@@ -10,7 +10,7 @@ export const fetchCandidates = () => {
                 'https://fld-devtest-api.herokuapp.com/api/v1/users',
                 {
                     headers: {
-                        'session-token': SessionKey,
+                        'session-token': ENV.SessionKey,
                     },
                 }
             );

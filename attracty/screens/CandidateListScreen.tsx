@@ -1,16 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import {
-    View,
-    Text,
-    ActivityIndicator,
-    Image,
-    Animated,
-    Dimensions,
-} from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavigationStackProp } from 'react-navigation-stack';
 import styled from 'styled-components/native';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import { ICandidateProps, CANDIDATE_CHOOSE } from '../types/candidates';
 import * as candidateActions from '../store/actions/candidate';
@@ -84,19 +76,7 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
         );
     }
 
-    const SCREEN_HEIGHT = Dimensions.get('window').height;
-    const SCREEN_WIDTH = Dimensions.get('window').width;
-
     const testArr = candidates.slice(0, 2);
-    // {testArr.map((item: ICandidateProps) => (
-    //     <CandidateItem
-    //         key={item.id}
-    //         id={item.id}
-    //         info={item.info}
-    //         photos={item.photos}
-    //         onSelect={onSelectCandidate}
-    //     />
-    // ))}
 
     console.log(testArr);
 
@@ -104,98 +84,21 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
         <CardContainer>
             <View>
                 {testArr.map((item: ICandidateProps) => (
-                    <Card key={item.id}>
-                        <View>
-                            <Animated.View
-                                style={{
-                                    height: SCREEN_HEIGHT - 120,
-                                    width: SCREEN_WIDTH,
-                                    padding: 10,
-                                    position: 'absolute',
-                                }}
-                            >
-                                <ImageContainer>
-                                    <ProfileImage
-                                        style={{
-                                            resizeMode: 'cover',
-                                        }}
-                                        source={{ uri: item.photos[0].url }}
-                                    />
-
-                                    <StyledLinearGradient
-                                        colors={[
-                                            'transparent',
-                                            'rgba(0,0,0,1)',
-                                        ]}
-                                    />
-                                </ImageContainer>
-
-                                <InfoContainer>
-                                    <InfoHeader>
-                                        <Title>
-                                            {item.info.name}, {item.info.age}
-                                        </Title>
-                                    </InfoHeader>
-                                    <Subtitle>{item.info.sexuality}</Subtitle>
-                                    <Text>{item.id}</Text>
-                                </InfoContainer>
-                            </Animated.View>
-                        </View>
-                    </Card>
+                    <CandidateItem
+                        key={item.id}
+                        id={item.id}
+                        info={item.info}
+                        photos={item.photos}
+                        onSelect={onSelectCandidate}
+                    />
                 ))}
             </View>
         </CardContainer>
     );
 };
 
-const Title = styled.Text`
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-`;
-
-const Subtitle = styled.Text`
-    font-size: 14px;
-`;
-
-const InfoContainer = styled.View`
-    padding: 0 20px;
-    position: absolute;
-    bottom: 50px;
-`;
-
-const InfoHeader = styled.View`
-    flex-direction: row;
-`;
-
 const CardContainer = styled.View`
-    /* background-color: black; */
     flex: 1;
-    /* padding: 20px; */
-`;
-
-const Card = styled.View`
-    flex: 1;
-`;
-
-const ImageContainer = styled.View`
-    border-radius: 20px;
-    background-color: red;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-`;
-
-const ProfileImage = styled.Image`
-    flex: 1;
-`;
-
-const StyledLinearGradient = styled(LinearGradient)`
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100px;
 `;
 
 export default PeopleListScreen;

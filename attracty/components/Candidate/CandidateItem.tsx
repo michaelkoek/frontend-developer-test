@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { ICandidateProps, CANDIDATE_CHOOSE } from '../../types/candidates';
+import Card from '../UI/Card';
 
 // interface ICardProps {
 //     onSelect: (id: string, onSelect: CANDIDATE_CHOOSE) => void;
@@ -71,16 +72,6 @@ const CandidateItem: React.FC<ICandidateProps> = ({ id, info, photos }) => {
         </Card>
     );
 };
-
-const Card = styled.View`
-    flex: 1;
-    border: 1px solid #ccc;
-    shadow-opacity: 0.75;
-    shadow-radius: 5px;
-    shadow-color: rgba(0, 0, 0, 0.28);
-    shadow-offset: 0px 0px;
-    elevation: 5;
-`;
 
 const Title = styled.Text`
     font-size: 20px;

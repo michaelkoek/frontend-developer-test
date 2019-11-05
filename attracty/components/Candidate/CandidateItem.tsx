@@ -6,24 +6,29 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ICandidateProps, CANDIDATE_CHOOSE } from '../../types/candidates';
 import Card from '../UI/Card';
 
-// interface ICardProps {
-//     onSelect: (id: string, onSelect: CANDIDATE_CHOOSE) => void;
-// }
+interface ICardProps {
+    isCurrentIndex: boolean;
+}
 
-const CandidateItem: React.FC<ICandidateProps> = ({ id, info, photos }) => {
-    // const [panResponse, setPanResponse] = useState(null);
-    const [currentIndex, setCurrentIndex] = useState<number>(0);
+const CandidateItem: React.FC<ICandidateProps & ICardProps> = ({
+    info,
+    photos,
+    isCurrentIndex,
+}) => {
+    const SCREEN_HEIGHT: number = Dimensions.get('window').height;
+    const SCREEN_WIDTH: number = Dimensions.get('window').width;
 
-    const SCREEN_HEIGHT = Dimensions.get('window').height;
-    const SCREEN_WIDTH = Dimensions.get('window').width;
+    const animatePosition: Animated.ValueXY = new Animated.ValueXY();
 
-    const animatePosition = new Animated.ValueXY();
+    const rotate = animatePosition.x.interpolate({
+        inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+        outputRange: ['-10deg', '0deg', '10deg'],
+        extrapolate: 'clamp',
+    });
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
-        onPanResponderMove: (event, gestureState) => {
-            // console.log(gesture);
-            // setPanResponse(gesture);
+        onPanResponderMove: (_, gestureState) => {
             animatePosition.setValue({
                 x: gestureState.dx,
                 y: gestureState.dy,
@@ -31,14 +36,27 @@ const CandidateItem: React.FC<ICandidateProps> = ({ id, info, photos }) => {
         },
     });
 
+    const rotateAndTranslate = () => ({
+        transform: [
+            {
+                rotate: rotate,
+            },
+            ...animatePosition.getTranslateTransform(),
+        ],
+    });
+
+    console.log({ animatePosition });
+    console.log({ rotateAndTranslate });
+
     return (
         <Card>
             <Animated.View
-                {...panResponder.panHandlers}
+                // {...panResponder.panHandlers}
+                {...(isCurrentIndex && panResponder.panHandlers)}
                 style={[
-                    { transform: animatePosition.getTranslateTransform() },
+                    isCurrentIndex && rotateAndTranslate(),
                     {
-                        height: SCREEN_HEIGHT - 120,
+                        height: SCREEN_HEIGHT - 150,
                         width: SCREEN_WIDTH,
                         padding: 10,
                         position: 'absolute',
@@ -47,9 +65,7 @@ const CandidateItem: React.FC<ICandidateProps> = ({ id, info, photos }) => {
             >
                 <ImageContainer>
                     <ProfileImage
-                        style={{
-                            resizeMode: 'cover',
-                        }}
+                        resizeMode="cover"
                         source={{ uri: photos[0].url }}
                     />
 
@@ -59,14 +75,12 @@ const CandidateItem: React.FC<ICandidateProps> = ({ id, info, photos }) => {
                 </ImageContainer>
 
                 <InfoContainer>
-                    <InfoHeader>
-                        <Title>
-                            {info.name}, {info.age}
-                        </Title>
-                        <Subtitle>
-                            {info.sexuality} {info.gender}
-                        </Subtitle>
-                    </InfoHeader>
+                    <Title>
+                        {info.name}, {info.age}
+                    </Title>
+                    <Subtitle>
+                        {info.sexuality} {info.gender}
+                    </Subtitle>
                 </InfoContainer>
             </Animated.View>
         </Card>
@@ -74,14 +88,14 @@ const CandidateItem: React.FC<ICandidateProps> = ({ id, info, photos }) => {
 };
 
 const Title = styled.Text`
-    font-size: 20px;
+    font-size: 25px;
     color: white;
     font-weight: bold;
     margin-bottom: 10px;
 `;
 
 const Subtitle = styled.Text`
-    font-size: 14px;
+    font-size: 18px;
     color: white;
     font-weight: bold;
     text-transform: capitalize;
@@ -93,10 +107,6 @@ const InfoContainer = styled.View`
     bottom: 50px;
     width: 100%;
     left: 10px;
-`;
-
-const InfoHeader = styled.View`
-    width: 100%;
 `;
 
 const ImageContainer = styled.View`

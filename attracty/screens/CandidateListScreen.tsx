@@ -16,7 +16,7 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
     navigation,
 }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [error, setError] = useState<null | string>(null);
     const candidates: ICandidateProps[] = useSelector(
         state => state.candidate.availableCandidates
@@ -26,13 +26,11 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
     // Fetch the candidates
     const loadCandidates = useCallback(async () => {
         setError(null);
-        setIsRefreshing(true);
         try {
             await dispatch(candidateActions.fetchCandidates());
         } catch (err) {
             setError(err.message);
         }
-        setIsRefreshing(false);
     }, [dispatch, setIsLoading, setError]);
 
     useEffect(() => {
@@ -71,27 +69,30 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
     if (!isLoading && candidates.length === 0) {
         return (
             <View>
-                <Text>No candidates found! </Text>
+                <Text>No candidates found!</Text>
             </View>
         );
     }
 
     const testArr = candidates.slice(0, 2);
 
-    console.log(testArr);
-
     return (
         <CardContainer>
             <View>
-                {testArr.map((item: ICandidateProps) => (
-                    <CandidateItem
-                        key={item.id}
-                        id={item.id}
-                        info={item.info}
-                        photos={item.photos}
-                        onSelect={onSelectCandidate}
-                    />
-                ))}
+                {testArr
+                    .map((item: ICandidateProps, index: number) => {
+                        if (index < currentIndex) return null;
+                        return (
+                            <CandidateItem
+                                key={item.id}
+                                isCurrentIndex={index === currentIndex}
+                                id={item.id}
+                                info={item.info}
+                                photos={item.photos}
+                            />
+                        );
+                    })
+                    .reverse()}
             </View>
         </CardContainer>
     );
@@ -99,6 +100,7 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
 
 const CardContainer = styled.View`
     flex: 1;
+    background-color: purple;
 `;
 
 export default PeopleListScreen;

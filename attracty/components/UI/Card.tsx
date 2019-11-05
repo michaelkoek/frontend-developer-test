@@ -10,7 +10,6 @@ const Card: React.FC<ICardProps> = ({ children }) => (
 );
 
 const CardItem = styled.View`
-    flex: 1;
     border: 2px solid #ccc;
     shadow-opacity: 0.55;
     shadow-radius: 8px;

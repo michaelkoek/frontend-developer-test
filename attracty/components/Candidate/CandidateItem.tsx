@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { ICandidateProps, CANDIDATE_CHOOSE } from '../../types/candidates';
 import Card from '../UI/Card';
+import CardFeedbackButton from '../UI/CardFeedbackButton';
 
 interface ICardProps {
     isCurrentIndex: boolean;
@@ -13,7 +14,7 @@ interface ICardProps {
 const CandidateItem: React.FC<ICandidateProps & ICardProps> = ({
     info,
     photos,
-    isCurrentIndex,
+    isCurrentIndex, // Limiting Panresponder to only the first card
 }) => {
     const SCREEN_HEIGHT: number = Dimensions.get('window').height;
     const SCREEN_WIDTH: number = Dimensions.get('window').width;
@@ -26,6 +27,18 @@ const CandidateItem: React.FC<ICandidateProps & ICardProps> = ({
         extrapolate: 'clamp',
     });
 
+    const likeAction = animatePosition.x.interpolate({
+        inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+        outputRange: [0, 0, 1],
+        extrapolate: 'clamp',
+    });
+
+    const nopeAction = animatePosition.x.interpolate({
+        inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+        outputRange: [1, 0, 0],
+        extrapolate: 'clamp'
+    });
+     
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderMove: (_, gestureState) => {
@@ -51,7 +64,6 @@ const CandidateItem: React.FC<ICandidateProps & ICardProps> = ({
     return (
         <Card>
             <Animated.View
-                // {...panResponder.panHandlers}
                 {...(isCurrentIndex && panResponder.panHandlers)}
                 style={[
                     isCurrentIndex && rotateAndTranslate(),
@@ -63,6 +75,7 @@ const CandidateItem: React.FC<ICandidateProps & ICardProps> = ({
                     },
                 ]}
             >
+                <CardFeedbackButton action={likeAction} />
                 <ImageContainer>
                     <ProfileImage
                         resizeMode="cover"

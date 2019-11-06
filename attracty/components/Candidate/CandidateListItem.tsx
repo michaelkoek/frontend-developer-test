@@ -108,7 +108,6 @@ const SubInfo = styled.View`
 `;
 
 const ImageContainer = styled.View`
-    border-radius: ${(Dimensions.get('window').width * 0.7) / 2};
     width: 100%;
     height: ${Dimensions.get('window').width * 0.7};
     overflow: hidden;
@@ -124,7 +123,7 @@ const ProfileImage = styled.Image`
 const TouchableArea = styled.View`
     /* overflow: hidden; */
     /* flex: 1; */
-    margin: 10px 0;
+    margin: 20px;
     /* background-color: green; */
 `;
 

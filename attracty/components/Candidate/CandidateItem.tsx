@@ -38,6 +38,18 @@ const CandidateItem: React.FC<ICandidateProps & ICardProps> = ({
         outputRange: [1, 0, 0],
         extrapolate: 'clamp'
     });
+
+    const nextCardOpacity = animatePosition.x.interpolate({
+        inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+        outputRange: [1, 0, 1],
+        extrapolate: 'clamp'
+     })
+
+     const nextCardScale = animatePosition.x.interpolate({
+        inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+        outputRange: [1, 0.8, 1],
+        extrapolate: 'clamp'
+     })
      
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,

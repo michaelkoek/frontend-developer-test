@@ -2,7 +2,7 @@ import React from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 
 import AppNavigator from './navigation/AppNavigator';
 import candidateReducer from './store/reducers/candidate';
@@ -13,8 +13,8 @@ const rootReducer = combineReducers({
 
 const store = createStore(
     rootReducer,
-    applyMiddleware(ReduxThunk),
-    composeWithDevTools()
+    applyMiddleware(ReduxThunk)
+    // composeWithDevTools()
 );
 
 const App: React.FC = () => {

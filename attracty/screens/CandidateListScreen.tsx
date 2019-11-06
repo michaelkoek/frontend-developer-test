@@ -1,12 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import {
+    View,
+    Text,
+    ActivityIndicator,
+    FlatList,
+    Platform,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavigationStackProp } from 'react-navigation-stack';
 import styled from 'styled-components/native';
 
 import { ICandidateProps, CANDIDATE_CHOOSE } from '../types/candidates';
 import * as candidateActions from '../store/actions/candidate';
-import CandidateItem from '../components/Candidate/CandidateItem';
+
+import CandidateListItem from '../components/Candidate/CandidateListItem';
 
 type Props = {
     navigation: NavigationStackProp;
@@ -16,7 +23,7 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
     navigation,
 }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
     const [error, setError] = useState<null | string>(null);
     const candidates: ICandidateProps[] = useSelector(
         state => state.candidate.availableCandidates
@@ -26,11 +33,14 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
     // Fetch the candidates
     const loadCandidates = useCallback(async () => {
         setError(null);
+        setIsRefreshing(true);
+
         try {
             await dispatch(candidateActions.fetchCandidates());
         } catch (err) {
             setError(err.message);
         }
+        setIsRefreshing(false);
     }, [dispatch, setIsLoading, setError]);
 
     useEffect(() => {
@@ -74,33 +84,34 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
         );
     }
 
-    const testArr = candidates.slice(0, 2);
+    const testArr = candidates.slice(0, 4);
 
     return (
         <CardContainer>
-            <View>
-                {testArr
-                    .map((item: ICandidateProps, index: number) => {
-                        if (index < currentIndex) return null;
-                        return (
-                            <CandidateItem
-                                key={item.id}
-                                isCurrentIndex={index === currentIndex}
-                                id={item.id}
-                                info={item.info}
-                                photos={item.photos}
-                            />
-                        );
-                    })
-                    .reverse()}
-            </View>
+            <FlatList
+                onRefresh={loadCandidates}
+                refreshing={isRefreshing}
+                data={testArr}
+                keyExtractor={(item: ICandidateProps) => item.id}
+                renderItem={(itemData: { item: ICandidateProps }) => {
+                    const { info, id, photos } = itemData.item;
+                    return (
+                        <CandidateListItem
+                            id={id}
+                            info={info}
+                            photos={photos}
+                            // onSelect={onSelectCandidate}
+                        />
+                    );
+                }}
+            />
         </CardContainer>
     );
 };
 
-const CardContainer = styled.View`
-    flex: 1;
+const CardContainer = styled.SafeAreaView`
     background-color: purple;
+    flex: 1;
 `;
 
 export default PeopleListScreen;

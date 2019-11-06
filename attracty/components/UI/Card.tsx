@@ -10,12 +10,12 @@ const Card: React.FC<ICardProps> = ({ children }) => (
 );
 
 const CardItem = styled.View`
-    border: 2px solid #ccc;
     shadow-opacity: 0.55;
     shadow-radius: 8px;
     shadow-color: black;
     shadow-offset: 0px 2px;
     elevation: 5;
+    margin: 20px;
     background-color: white;
 `;
 

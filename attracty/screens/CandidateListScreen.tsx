@@ -14,6 +14,7 @@ import { ICandidateProps, CANDIDATE_CHOOSE } from '../types/candidates';
 import * as candidateActions from '../store/actions/candidate';
 
 import CandidateListItem from '../components/Candidate/CandidateListItem';
+import Person from '../components/Person/Person';
 
 type Props = {
     navigation: NavigationStackProp;
@@ -96,11 +97,16 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
                 renderItem={(itemData: { item: ICandidateProps }) => {
                     const { info, id, photos } = itemData.item;
                     return (
-                        <CandidateListItem
+                        <Person
                             id={id}
                             info={info}
                             photos={photos}
-                            // onSelect={onSelectCandidate}
+                            onSwipeFromLeft={() =>
+                                onSelectCandidate(id, CANDIDATE_CHOOSE.LIKE)
+                            }
+                            onSwipeFromRight={() => {
+                                onSelectCandidate(id, CANDIDATE_CHOOSE.DISLIKE);
+                            }}
                         />
                     );
                 }}

@@ -51,12 +51,12 @@ const candidateListItem: React.FC<ICandidateProps> = ({ info, photos }) => {
                                     }
                                 >
                                     <MoreInfoButton>
-                                        {`${moreInfo ? 'less' : 'more'} info`}
+                                        {`${moreInfo ? 'Less' : 'More'} info`}
                                     </MoreInfoButton>
                                     {moreInfo && (
-                                        <MainText>
+                                        <Text>
                                             {info.name}, {info.age}
-                                        </MainText>
+                                        </Text>
                                     )}
                                 </TouchableOpacity>
                             </SubInfo>
@@ -79,15 +79,20 @@ const TotalInformation = styled.View`
     border-radius: 10px;
     overflow: hidden;
     margin-top: -40px;
+    shadow-opacity: 0.55;
+    shadow-radius: 8px;
+    shadow-color: black;
+    shadow-offset: 0px 2px;
+    elevation: 5;
 `;
 
 const MoreInfoButton = styled.Text`
     text-align: center;
+    color: #ccc;
 `;
 
 const MainInfo = styled.View`
-    /* background-color: red; */
-    padding: 20px;
+    padding: 10px;
 `;
 
 const MainText = styled.Text`
@@ -104,7 +109,7 @@ const MainSubInfo = styled.Text`
 const SubInfo = styled.View`
     border-color: #ccc;
     border-width: 1px;
-    padding: 20px;
+    padding: 5px;
 `;
 
 const ImageContainer = styled.View`

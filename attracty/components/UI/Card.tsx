@@ -17,6 +17,8 @@ const CardItem = styled.View`
     elevation: 5;
     margin: 20px;
     background-color: white;
+    border-radius: 10px;
+    padding: 15px;
 `;
 
 export default Card;

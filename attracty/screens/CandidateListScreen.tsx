@@ -1,19 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import {
-    View,
-    Text,
-    ActivityIndicator,
-    FlatList,
-    Platform,
-} from 'react-native';
+import { View, Text, ActivityIndicator, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavigationStackProp } from 'react-navigation-stack';
 import styled from 'styled-components/native';
 
 import { ICandidateProps, CANDIDATE_CHOOSE } from '../types/candidates';
 import * as candidateActions from '../store/actions/candidate';
-
-import CandidateListItem from '../components/Candidate/CandidateListItem';
 import Person from '../components/Person/Person';
 
 type Props = {

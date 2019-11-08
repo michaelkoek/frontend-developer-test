@@ -18,6 +18,7 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
     const [error, setError] = useState<null | string>(null);
+
     const candidates: ICandidateProps[] = useSelector(
         state => state.candidate.availableCandidates
     );
@@ -57,34 +58,40 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
         });
     }, [dispatch, loadCandidates]);
 
-    const onSelectCandidate = (id: string, chooseType: CANDIDATE_CHOOSE) => {
-        console.log({ id, chooseType });
-    };
+    const onSelectCandidate = useCallback(
+        (id: string, chooseType: CANDIDATE_CHOOSE) => {
+            if (chooseType === CANDIDATE_CHOOSE.LIKE) {
+                dispatch(candidateActions.matchedCandidates(id));
+            }
+            if (chooseType === CANDIDATE_CHOOSE.DISLIKE) {
+                dispatch(candidateActions.dislikeCandidate(id));
+            }
+        },
+        [dispatch]
+    );
 
     if (isLoading) {
         return (
-            <View>
-                <ActivityIndicator size="large" color="blue" />
-            </View>
+            <Container>
+                <ActivityIndicator size="large" color="#3b2c22" />
+            </Container>
         );
     }
 
     if (!isLoading && candidates.length === 0) {
         return (
-            <View>
+            <Container>
                 <Text>No candidates found!</Text>
-            </View>
+            </Container>
         );
     }
-
-    const testArr = candidates.slice(0, 4);
 
     return (
         <CardContainer>
             <FlatList
                 onRefresh={loadCandidates}
                 refreshing={isRefreshing}
-                data={testArr}
+                data={candidates}
                 keyExtractor={(item: ICandidateProps) => item.id}
                 renderItem={(itemData: { item: ICandidateProps }) => {
                     const { info, id, photos } = itemData.item;
@@ -110,6 +117,12 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
 const CardContainer = styled.SafeAreaView`
     background-color: #3b2c22;
     flex: 1;
+`;
+
+const Container = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
 `;
 
 export default PeopleListScreen;

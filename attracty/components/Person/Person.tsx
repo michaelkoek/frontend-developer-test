@@ -1,21 +1,13 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    Platform,
-    TouchableNativeFeedback,
-    TouchableOpacity,
-    Dimensions,
-    Animated,
-} from 'react-native';
+import { Dimensions, Animated } from 'react-native';
 import styled from 'styled-components/native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 import { ICandidateProps } from '../../types/candidates';
 import Card from '../UI/Card';
 import CardImage from '../UI/CardImage';
 import CardDetails from '../UI/CardDetails';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 interface IPerson {
     onSwipeFromLeft: () => void;

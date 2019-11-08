@@ -81,7 +81,7 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
     if (!isLoading && candidates.length === 0) {
         return (
             <Container>
-                <Text>No candidates found!</Text>
+                <Text>No candidates found! 😨</Text>
             </Container>
         );
     }

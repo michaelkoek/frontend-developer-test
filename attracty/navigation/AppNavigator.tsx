@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -26,7 +25,7 @@ const tabScreens = {
             tabBarIcon: tabInfo => (
                 <Ionicons
                     name="ios-chatbubbles"
-                    size={25}
+                    size={35}
                     color={tabInfo.tintColor}
                 />
             ),
@@ -39,6 +38,9 @@ const TabNavigator = createBottomTabNavigator(tabScreens, {
         showLabel: false,
         activeTintColor: '#e0917a',
         inactiveTintColor: '#b0b5c8',
+        style: {
+            backgroundColor: '#eaedf4',
+        },
     },
 });
 

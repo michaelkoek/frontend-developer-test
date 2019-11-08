@@ -1,7 +1,6 @@
 import React from 'react';
 import { Dimensions, Text } from 'react-native';
 import styled from 'styled-components/native';
-import { Ionicons } from '@expo/vector-icons';
 
 const profile = ['girls', 'girl', 'threesome', 'fun', 'sex'];
 
@@ -12,18 +11,21 @@ const CardDetails = ({ info }) => {
                 <TopInfo>
                     {info.name}, {info.age}
                 </TopInfo>
-                <Gender>{info.gender}</Gender>
+                <Gender>
+                    {info.type}, {info.gender}
+                </Gender>
             </DetailTop>
 
             {!!info.desires && info.desires.length > 0 && (
                 <DetailBottom>
-                    {info.desires.map(desire => {
+                    {info.desires.map((desire, index, arr) => {
                         const sameInterest: boolean = profile.includes(
                             desire.replace(' ', '').toLowerCase()
                         );
                         return (
                             <DesireText match={sameInterest} key={desire}>
                                 {desire}
+                                {arr.length - 1 !== index && ','}
                             </DesireText>
                         );
                     })}
@@ -40,9 +42,10 @@ const DetailTop = styled.View`
 `;
 
 const DetailBottom = styled.View`
-    border-color: #ccc;
+    border-color: #c5cfd2;
     border-top-width: 1px;
     padding: 10px 0 0;
+    flex-direction: row;
 `;
 
 const TopInfo = styled.Text`
@@ -53,11 +56,15 @@ const TopInfo = styled.Text`
 `;
 
 const DesireText = styled.Text<{ match?: boolean }>`
-    color: ${({ match }) => (match ? 'red' : 'grey')};
+    color: ${({ match }) => (match ? '#E0917A ' : '#C5CFD2')};
+    margin-right: 2px;
+    text-transform: capitalize;
+    font-weight: ${({ match }) => (match ? 500 : 'normal')};
 `;
 
 const Gender = styled.Text`
     text-transform: capitalize;
+    color: #c5cfd2;
 `;
 
 export default CardDetails;

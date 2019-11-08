@@ -1,11 +1,15 @@
-// export const SET_CANDIDATES = 'SET_CANDIDATES';
-
 export enum CANDIDATES {
     SET,
+    MATCH,
+    DISLIKE,
 }
 
-interface ISetCandidateAction {
-    type: typeof CANDIDATES.SET;
-}
+// interface ISetCandidateAction {
+//     type: typeof CANDIDATES.SET;
+// }
 
-export type CandidateTypes = ISetCandidateAction;
+// interface IMatchCandidateAction {
+//     type: typeof CANDIDATES.MATCH;
+// }
+
+// export type CandidateTypes = ISetCandidateAction | IMatchCandidateAction;

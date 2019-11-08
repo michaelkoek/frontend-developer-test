@@ -33,8 +33,8 @@ const Person: React.FC<ICandidateProps & IPerson> = ({
 
     const LeftActions = (progress, dragX) => {
         const scale = dragX.interpolate({
-            inputRange: [0, 100],
-            outputRange: [0, 1],
+            inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+            outputRange: [0, 0, 1],
             extrapolate: 'clamp',
         });
         return (
@@ -43,8 +43,7 @@ const Person: React.FC<ICandidateProps & IPerson> = ({
                     as={Animated.Text}
                     style={{ transform: [{ scale }] }}
                 >
-                    Liked{' '}
-                    <Ionicons name="md-heart-empty" size={25} color="red" />
+                    <Ionicons name="ios-heart" size={80} color="#D74432" />
                 </ActionText>
             </LeftAction>
         );
@@ -52,8 +51,8 @@ const Person: React.FC<ICandidateProps & IPerson> = ({
 
     const RightActions = (progress, dragX) => {
         const scale = dragX.interpolate({
-            inputRange: [-100, 0],
-            outputRange: [1, 0],
+            inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+            outputRange: [1, 0, 0],
             extrapolate: 'clamp',
         });
         return (
@@ -64,10 +63,9 @@ const Person: React.FC<ICandidateProps & IPerson> = ({
                 >
                     <MaterialIcons
                         name="not-interested"
-                        size={25}
+                        size={80}
                         color="white"
                     />
-                    DisLike
                 </ActionText>
             </RightAction>
         );
@@ -89,21 +87,23 @@ const Person: React.FC<ICandidateProps & IPerson> = ({
 };
 
 const LeftAction = styled.View`
-    background-color: green;
     justify-content: center;
     flex: 1;
+    background-color: #e0917a;
+    align-items: flex-start;
 `;
 
 const RightAction = styled.View`
-    background-color: red;
-    justify-content: center;
+    background-color: #d744318c;
     flex: 1;
+    justify-content: center;
     align-items: flex-end;
 `;
 const ActionText = styled.Text`
     color: white;
     font-weight: bold;
     padding: 20px;
+    align-items: center;
 `;
 
 export default Person;

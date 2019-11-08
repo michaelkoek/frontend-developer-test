@@ -2,9 +2,12 @@ import React from 'react';
 import { Dimensions, Text } from 'react-native';
 import styled from 'styled-components/native';
 
+import { ICandidateProps } from '../../types/candidates';
+
+// Simulate logged in user profile desires
 const profile = ['girls', 'girl', 'threesome', 'fun', 'sex'];
 
-const CardDetails = ({ info }) => {
+const CardDetails: React.FC<ICandidateProps> = ({ info }) => {
     return (
         <DetailContainer>
             <DetailTop>

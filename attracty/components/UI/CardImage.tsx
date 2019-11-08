@@ -2,9 +2,9 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 
-import { CandidatePhotos } from '../../types/candidates';
+import { ICandidateProps } from '../../types/candidates';
 
-const CardImage: React.FC<CandidatePhotos[]> = ({ photos }) => {
+const CardImage: React.FC<ICandidateProps> = ({ photos }) => {
     return (
         <ImageContainer>
             <ProfileImage resizeMode="cover" source={{ uri: photos[0].url }} />

@@ -15,6 +15,7 @@ import { ICandidateProps } from '../../types/candidates';
 import Card from '../UI/Card';
 import CardImage from '../UI/CardImage';
 import CardDetails from '../UI/CardDetails';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 interface IPerson {
     onSwipeFromLeft: () => void;
@@ -27,6 +28,9 @@ const Person: React.FC<ICandidateProps & IPerson> = ({
     onSwipeFromLeft,
     onSwipeFromRight,
 }) => {
+    const SCREEN_HEIGHT: number = Dimensions.get('window').height;
+    const SCREEN_WIDTH: number = Dimensions.get('window').width;
+
     const LeftActions = (progress, dragX) => {
         const scale = dragX.interpolate({
             inputRange: [0, 100],
@@ -39,29 +43,33 @@ const Person: React.FC<ICandidateProps & IPerson> = ({
                     as={Animated.Text}
                     style={{ transform: [{ scale }] }}
                 >
-                    Liked
+                    Liked{' '}
+                    <Ionicons name="md-heart-empty" size={25} color="red" />
                 </ActionText>
             </LeftAction>
         );
     };
 
-    const RightActions = ({ progress, dragX, onPress }) => {
+    const RightActions = (progress, dragX) => {
         const scale = dragX.interpolate({
             inputRange: [-100, 0],
             outputRange: [1, 0],
             extrapolate: 'clamp',
         });
         return (
-            <TouchableOpacity onPress={onPress}>
-                <RightAction>
-                    <ActionText
-                        as={Animated.Text}
-                        style={{ transform: [{ scale }] }}
-                    >
-                        DisLike
-                    </ActionText>
-                </RightAction>
-            </TouchableOpacity>
+            <RightAction>
+                <ActionText
+                    as={Animated.Text}
+                    style={{ transform: [{ scale }] }}
+                >
+                    <MaterialIcons
+                        name="not-interested"
+                        size={25}
+                        color="white"
+                    />
+                    DisLike
+                </ActionText>
+            </RightAction>
         );
     };
 
@@ -69,13 +77,8 @@ const Person: React.FC<ICandidateProps & IPerson> = ({
         <Swipeable
             renderLeftActions={LeftActions}
             onSwipeableLeftOpen={onSwipeFromLeft}
-            renderRightActions={(progress, dragX) => (
-                <RightActions
-                    progress={progress}
-                    dragX={dragX}
-                    onPress={onSwipeFromRight}
-                />
-            )}
+            renderRightActions={RightActions}
+            onSwipeableRightOpen={onSwipeFromRight}
         >
             <Card>
                 <CardImage photos={photos} />
@@ -95,6 +98,7 @@ const RightAction = styled.View`
     background-color: red;
     justify-content: center;
     flex: 1;
+    align-items: flex-end;
 `;
 const ActionText = styled.Text`
     color: white;

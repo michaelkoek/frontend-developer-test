@@ -116,7 +116,7 @@ const PeopleListScreen: React.FC<Props & ICandidateProps> = ({
 };
 
 const CardContainer = styled.SafeAreaView`
-    background-color: purple;
+    background-color: #3b2c22;
     flex: 1;
 `;
 

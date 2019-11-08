@@ -16,6 +16,7 @@ const ImageContainer = styled.View`
     width: 100%;
     height: ${Dimensions.get('window').height * 0.4};
     overflow: hidden;
+    border-radius: 3px;
 `;
 const ProfileImage = styled.Image`
     width: 100%;

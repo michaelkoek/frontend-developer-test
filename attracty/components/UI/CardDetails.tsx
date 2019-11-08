@@ -42,10 +42,11 @@ const DetailTop = styled.View`
 `;
 
 const DetailBottom = styled.View`
-    border-color: #c5cfd2;
+    border-color: #e0917a;
     border-top-width: 1px;
     padding: 10px 0 0;
     flex-direction: row;
+    overflow: hidden;
 `;
 
 const TopInfo = styled.Text`
@@ -56,7 +57,7 @@ const TopInfo = styled.Text`
 `;
 
 const DesireText = styled.Text<{ match?: boolean }>`
-    color: ${({ match }) => (match ? '#E0917A ' : '#C5CFD2')};
+    color: ${({ match }) => (match ? '#E0917A ' : '#B0B5C8')};
     margin-right: 2px;
     text-transform: capitalize;
     font-weight: ${({ match }) => (match ? 500 : 'normal')};
@@ -64,7 +65,7 @@ const DesireText = styled.Text<{ match?: boolean }>`
 
 const Gender = styled.Text`
     text-transform: capitalize;
-    color: #c5cfd2;
+    color: #b0b5c8;
 `;
 
 export default CardDetails;

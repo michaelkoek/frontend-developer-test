@@ -16,7 +16,7 @@ const CardItem = styled.View`
     shadow-offset: 0px 2px;
     elevation: 5;
     margin: 20px;
-    background-color: white;
+    background-color: #eaedf4;
     border-radius: 10px;
     padding: 15px;
 `;

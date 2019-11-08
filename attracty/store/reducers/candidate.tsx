@@ -1,12 +1,12 @@
-import { CANDIDATES } from '../types';
+import { CANDIDATES, CandidateState } from '../types';
 import { ICandidateProps } from '../../types/candidates';
 
-const initialState = {
+const initialState: CandidateState = {
     availableCandidates: [],
     matchedCandidates: [],
 };
 
-const candidateReducer = (state = initialState, action) => {
+const candidateReducer = (state = initialState, action): CandidateState => {
     const removeFromFetchedList = (personId: string): ICandidateProps[] => {
         const findPerson = state.availableCandidates.findIndex(
             candidate => candidate.id === personId

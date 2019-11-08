@@ -35,3 +35,17 @@ export const fetchCandidates = () => {
         }
     };
 };
+
+export const matchedCandidates = (id: string): CandidateTypes => {
+    return {
+        type: CANDIDATES.MATCH,
+        candidateId: id,
+    };
+};
+
+export const dislikeCandidate = (id: string): CandidateTypes => {
+    return {
+        type: CANDIDATES.DISLIKE,
+        candidateId: id,
+    };
+};

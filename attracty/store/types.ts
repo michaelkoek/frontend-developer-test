@@ -1,15 +1,31 @@
+import { ICandidateProps } from '../types/candidates';
+
 export enum CANDIDATES {
     SET,
     MATCH,
     DISLIKE,
 }
 
-// interface ISetCandidateAction {
-//     type: typeof CANDIDATES.SET;
-// }
+export interface CandidateState {
+    availableCandidates: ICandidateProps[];
+    matchedCandidates?: ICandidateProps[];
+}
 
-// interface IMatchCandidateAction {
-//     type: typeof CANDIDATES.MATCH;
-// }
+interface ISetCandidateAction {
+    type: typeof CANDIDATES.SET;
+}
 
-// export type CandidateTypes = ISetCandidateAction | IMatchCandidateAction;
+interface IMatchCandidateAction {
+    type: typeof CANDIDATES.MATCH;
+    candidateId: string;
+}
+
+interface IDislikeCandidateAction {
+    type: typeof CANDIDATES.DISLIKE;
+    candidateId: string;
+}
+
+export type CandidateTypes =
+    | ISetCandidateAction
+    | IMatchCandidateAction
+    | IDislikeCandidateAction;

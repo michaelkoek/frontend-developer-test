@@ -1,8 +1,10 @@
+import { ICandidateProps } from '../types/candidates';
+
 class Candidate {
-    id: string;
-    info: Object;
-    associated: null | [];
-    photos: [];
+    id: ICandidateProps;
+    info: ICandidateProps;
+    associated: ICandidateProps;
+    photos: ICandidateProps;
     constructor(id, info, associated, photos) {
         this.id = id;
         this.info = info;

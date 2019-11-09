@@ -1,6 +1,8 @@
 import { CANDIDATES, CandidateState } from '../types';
 import { ICandidateProps } from '../../types/candidates';
 
+import Candidate from '../../models/candidate';
+
 const initialState: CandidateState = {
     availableCandidates: [],
     matchedCandidates: [],
@@ -20,9 +22,19 @@ const candidateReducer = (state = initialState, action): CandidateState => {
     switch (action.type) {
         case CANDIDATES.SET:
             if (state.availableCandidates.length === 0) {
+                const mappedCandidates = action.candidates.map(
+                    candidate =>
+                        new Candidate(
+                            candidate.id,
+                            candidate.info,
+                            candidate.associated,
+                            candidate.photos
+                        )
+                );
+
                 return {
                     ...state,
-                    availableCandidates: action.candidates,
+                    availableCandidates: mappedCandidates,
                 };
             }
             return {

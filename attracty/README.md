@@ -1,5 +1,7 @@
 # Attracty dating app
 
+An app made for [Feeld](https://feeld.co/)
+
 ## Introduction
 
 Welcome to the **Attracty app** and thank you for reviewing my code. It was a really fun challange to build this app; once I got started my mind went in overdrive of all possibilities.
@@ -49,12 +51,22 @@ There is also some unused code and old structures still in the stack. This is to
 ### Inspiration for design
 
 -   As this application (Feeld) has a “kinky” and anonymous side to it, I thought I find colors which may represents these tones a bit more. I came a cross a few colors which I thought could enhance this vibe like; purple, red and darker colors.
--   Here are some styles I looked at and used for inspiration  [example one](https://dribbble.com/shots/3897193-DWYHTD-trailer-visuals-for-instagram-story) [example two](https://dribbble.com/shots/6715492-Kink-17)
+-   Here are some styles I looked at and used for inspiration
+    -   [example one](https://dribbble.com/shots/3897193-DWYHTD-trailer-visuals-for-instagram-story)
+    -   [example two](https://dribbble.com/shots/6715492-Kink-17)
+
+### Card
+
+-   This was a hard part for me. I’ve tried four attempts to create a suitable card, as seen in the git log. The first few tries I tried making swipeable card like Tinder. I eventually stepped away from this approach for two reasons:
+    -   1: 95% of all dating apps have this setup and I wanted something different.
+    -   2: I was clearly following a long with a tutorial. I was frustrated because I wanted to highlight my code skills, not my “follow along” code skills
+-   Eventually I went with the current setup you find in the application. It is inspired from the e-mail application where you can swipe left or right. Same functionality but used for different purposes.
+-   I could have used plugins or other `npm` packages to get this swipe effect but I wanted to avoid that as much as possible and stay closer to the methods React Native ships with.
 
 ## Features which didn't make it in
 
 -   Theming done with styled components
--   User profiles
+-   Having a logged in user profile
 -   End-to-End (E2E) Test with [Detox](https://github.com/wix/Detox)
 -   Store matches in local database for faster loading
 -   More Animations and transitions

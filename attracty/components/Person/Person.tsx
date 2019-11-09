@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dimensions, Animated } from 'react-native';
 import styled from 'styled-components/native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -20,7 +20,6 @@ const Person: React.FC<ICandidateProps & IPerson> = ({
     onSwipeFromLeft,
     onSwipeFromRight,
 }) => {
-    const SCREEN_HEIGHT: number = Dimensions.get('window').height;
     const SCREEN_WIDTH: number = Dimensions.get('window').width;
 
     const LeftActions = (progress, dragX) => {

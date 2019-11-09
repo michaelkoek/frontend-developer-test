@@ -19,12 +19,12 @@ const candidateReducer = (state = initialState, action): CandidateState => {
 
     switch (action.type) {
         case CANDIDATES.SET:
-            // if (state.availableCandidates.length === 0) {
-            return {
-                ...state,
-                availableCandidates: action.candidates,
-            };
-            // }
+            if (state.availableCandidates.length === 0) {
+                return {
+                    ...state,
+                    availableCandidates: action.candidates,
+                };
+            }
             return {
                 ...state,
             };

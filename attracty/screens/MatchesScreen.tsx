@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import styled from 'styled-components/native';
 import { useSelector } from 'react-redux';
 
@@ -8,7 +8,6 @@ import MatchListItem from '../components/UI/MatchListItem';
 
 const MatchesScreen = () => {
     const matches = useSelector(state => state.candidate.matchedCandidates);
-    console.log('matchscreen==>', matches.length === 0 || !matches, matches);
 
     if (matches.length === 0 || !matches) {
         return (
@@ -20,7 +19,7 @@ const MatchesScreen = () => {
 
     return (
         <Container>
-            <FlatList
+            <List
                 data={matches}
                 keyExtractor={(item: ICandidateProps) => item.id}
                 renderItem={(itemData: { item: ICandidateProps }) => {
@@ -41,6 +40,10 @@ const Separator = styled.View`
     height: 1px;
     border-top-width: 1px;
     border-color: #ccc;
+`;
+
+const List = styled.FlatList`
+    width: 100%;
 `;
 
 const Container = styled.SafeAreaView`

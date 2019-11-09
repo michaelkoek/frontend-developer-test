@@ -1,24 +1,37 @@
 import React from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
 
-const MatchListItem = ({ info, photo }) => {
+import { ICandidateProps } from '../../types/candidates';
+
+interface IMatchListProps extends ICandidateProps {
+    photo: string;
+}
+
+const MatchListItem: React.FC<IMatchListProps> = ({ info, photo }) => {
     const availableChat = false;
     return (
-        <MatchItem>
-            <ProfileImg source={{ uri: photo }} />
-            <InfoContainer>
-                <UserName>{info.name}</UserName>
-                <Chat>
-                    {!availableChat && (
-                        <EmptyChat>Start typing something ...</EmptyChat>
-                    )}
-                </Chat>
-            </InfoContainer>
-        </MatchItem>
+        <TouchableOpacity>
+            <MatchItem>
+                <ProfileImg source={{ uri: photo }} />
+                <InfoContainer>
+                    <UserName>{info.name}</UserName>
+                    <View>
+                        {!availableChat && (
+                            <EmptyChat>Start typing something ...</EmptyChat>
+                        )}
+                    </View>
+                </InfoContainer>
+            </MatchItem>
+        </TouchableOpacity>
     );
 };
 
-const MatchItem = styled.TouchableOpacity``;
+const MatchItem = styled.View`
+    width: 100%;
+    flex-direction: row;
+    padding: 25px;
+`;
 const ProfileImg = styled.Image`
     width: 70px;
     height: 70px;
@@ -30,15 +43,18 @@ const ProfileImg = styled.Image`
 
 const InfoContainer = styled.View`
     margin-left: 25px;
-    width: 250px;
     justify-content: center;
     align-items: flex-start;
 `;
 
-const UserName = styled.Text``;
+const UserName = styled.Text`
+    margin-bottom: 10px;
+    font-weight: 400;
+`;
 
-const Chat = styled.View``;
-
-const EmptyChat = styled.Text``;
+const EmptyChat = styled.Text`
+    font-style: italic;
+    color: #ccc;
+`;
 
 export default MatchListItem;
